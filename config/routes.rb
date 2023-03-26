@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'transactions/index'
+  get 'transactions/create'
   get 'settings/edit'
   get 'settings/update'
   get 'allowance_events/create'
@@ -12,4 +14,6 @@ Rails.application.routes.draw do
     post 'run_weekly_allowance', on: :collection
   end
   resources :allowance_events, only: [:create]
+  resources :transactions, only: [:index, :create, :destroy]
+
 end
