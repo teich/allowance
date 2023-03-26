@@ -14,7 +14,7 @@
     <% @allowance_events.each do |event| %>
       <tr>
         <td><%= event.event_type %></td>
-        <td><%= event.amount %></td>
+        <td><%= number_to_currency(event.amount, unit: '$') %></td> <!-- Format amount as dollars -->
         <td><%= event.description %></td>
         <td><%= event.timestamp.strftime('%B %d, %Y at %I:%M %p') %></td>
         <td>
