@@ -1,14 +1,6 @@
 <div class="container mt-4">
   <h1 class="mb-4">Update Weekly Allowance</h1>
 
-  <% if flash[:notice] %>
-    <div class="alert alert-success"><%= flash[:notice] %></div>
-  <% end %>
-
-  <% if flash[:alert] %>
-    <div class="alert alert-danger"><%= flash[:alert] %></div>
-  <% end %>
-
 <%= form_with(url: settings_path, method: 'put', local: true) do |form| %>
   <div class="form-group">
       <%= form.label :spending, 'Spending Allowance:' %>
