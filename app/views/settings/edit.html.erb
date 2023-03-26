@@ -1,27 +1,28 @@
-<h1>Settings#edit</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">Update Weekly Allowance</h1>
 
-<% if flash[:notice] %>
-<h3><div class="notice"><%= flash[:notice] %></div></h3>
-<% end %>
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
 
-<% if flash[:alert] %>
-<h3><div class="alert"><%= flash[:alert] %></div></h3>
-<% end %>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger"><%= flash[:alert] %></div>
+  <% end %>
 
 <%= form_with(url: settings_path, method: 'put', local: true) do |form| %>
-    <div>
+  <div class="form-group">
       <%= form.label :spending, 'Spending Allowance:' %>
       <%= form.number_field :spending, step: '0.01', value: @weekly_allowance[:spending] %>
     </div>
-    <div>
+  <div class="form-group">
       <%= form.label :savings, 'Savings Allowance:' %>
       <%= form.number_field :savings, step: '0.01', value: @weekly_allowance[:savings] %>
     </div>
-    <div>
+  <div class="form-group">
       <%= form.label :giving, 'Giving Allowance:' %>
       <%= form.number_field :giving, step: '0.01', value: @weekly_allowance[:giving] %>
     </div>
-    <div>
+  <div class="form-group">
       <%= form.submit 'Update Allowance' %>
     </div>
   <% end %>
@@ -32,3 +33,4 @@
   <% end %>
 
   <%= link_to 'Back to Dashboard', root_path %>
+</div>

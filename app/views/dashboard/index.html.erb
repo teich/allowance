@@ -1,4 +1,6 @@
-<h1>Allowance Tracker</h1>
+<div class="container mt-4">
+<h1 class="mb-4">Allowance Tracker</h1>
+
 
 <% if @last_allowance_run_date %>
 <% local_time = @last_allowance_run_date.in_time_zone('Pacific Time (US & Canada)') %>
@@ -7,7 +9,7 @@
   <p>Last allowance run date is not available.</p>
 <% end %>
 
-<table>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Category</th>
@@ -33,3 +35,4 @@
 <br>
 
 <%= link_to 'Update Weekly Allowance', edit_settings_path %>
+</div>
