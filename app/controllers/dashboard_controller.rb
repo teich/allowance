@@ -18,14 +18,7 @@ class DashboardController < ApplicationController
     balance = 0
 
     allowance_events.each do |event|
-      case event.event_type
-      when 'spending'
-        balance += event.amount
-      when 'savings'
-        balance += event.amount
-      when 'giving'
-        balance += event.amount
-      end
+      balance += event.amount
     end
 
     balance
