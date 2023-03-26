@@ -1,0 +1,22 @@
+<h1>Settings#edit</h1>
+<%= form_with(url: settings_path, method: 'put', local: true) do |form| %>
+    <div>
+      <%= form.label :spending, 'Spending Allowance:' %>
+      <%= form.number_field :spending, step: '0.01', value: @weekly_allowance[:spending] %>
+    </div>
+    <div>
+      <%= form.label :savings, 'Savings Allowance:' %>
+      <%= form.number_field :savings, step: '0.01', value: @weekly_allowance[:savings] %>
+    </div>
+    <div>
+      <%= form.label :giving, 'Giving Allowance:' %>
+      <%= form.number_field :giving, step: '0.01', value: @weekly_allowance[:giving] %>
+    </div>
+    <div>
+      <%= form.submit 'Update Allowance' %>
+    </div>
+  <% end %>
+
+  <br>
+
+  <%= link_to 'Back to Dashboard', root_path %>

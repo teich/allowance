@@ -1,0 +1,2 @@
+class AllowanceSetting < ApplicationRecord
+end

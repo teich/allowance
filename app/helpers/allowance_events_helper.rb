@@ -1,0 +1,2 @@
+module AllowanceEventsHelper
+end

@@ -1,0 +1,28 @@
+<h1>Allowance Tracker</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spending</td>
+      <td><%= @spending_balance %></td>
+    </tr>
+    <tr>
+      <td>Savings</td>
+      <td><%= @savings_balance %></td>
+    </tr>
+    <tr>
+      <td>Giving</td>
+      <td><%= @giving_balance %></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Update Weekly Allowance', edit_settings_path %>
