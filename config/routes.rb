@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root 'dashboard#index'
-  resource :settings, only: [:edit, :update]
+  resource :settings, only: [:edit, :update] do 
+    post 'run_weekly_allowance', on: :collection
+  end
   resources :allowance_events, only: [:create]
 end

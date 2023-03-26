@@ -1,5 +1,12 @@
 <h1>Allowance Tracker</h1>
 
+<% if @last_allowance_run_date %>
+<% local_time = @last_allowance_run_date.in_time_zone('Pacific Time (US & Canada)') %>
+  <p>Last allowance run on: <%= local_time.strftime('%B %d, %Y at %I:%M %p') %></p>
+<% else %>
+  <p>Last allowance run date is not available.</p>
+<% end %>
+
 <table>
   <thead>
     <tr>

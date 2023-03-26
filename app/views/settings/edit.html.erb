@@ -18,5 +18,8 @@
   <% end %>
 
   <br>
+  <%= form_with(url: run_weekly_allowance_settings_path, method: 'post', local: true) do |form| %>
+    <%= form.submit 'Run Weekly Allowance' %>
+  <% end %>
 
   <%= link_to 'Back to Dashboard', root_path %>
