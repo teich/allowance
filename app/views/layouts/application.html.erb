@@ -13,7 +13,7 @@
   <body>
     <%= render 'layouts/alerts' %> <!-- Render the alerts partial view -->
     <div class="container mt-4">
-    <% if current_user %>
+    <% if current_user.name %>
       Signed in as <%= current_user %> 
       <%= button_to "Sign Out", sign_out_path, method: :delete, class: 'btn btn-primary'   %>
   <% else %>
