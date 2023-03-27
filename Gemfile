@@ -46,6 +46,9 @@ gem 'bootstrap', '~> 5.1.3' # Use the latest version of Bootstrap available at t
 
 gem "font-awesome-sass", "~> 6.3.0"
 
+gem 'omniauth-google-oauth2'
+
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -55,6 +58,8 @@ gem "font-awesome-sass", "~> 6.3.0"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'dotenv-rails'
+
 end
 
 group :development do
