@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :admin_user!
 
   def edit
     # You need to implement a method to fetch the current weekly allowance values.
