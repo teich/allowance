@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :admin_user!
 
   def index
     @allowance_events = AllowanceEvent.where.not(event_type: ['update_spending', 'update_savings', 'update_giving'])
