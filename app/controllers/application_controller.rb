@@ -9,17 +9,17 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to root_path, alert: 'You must be signed in to view this page.' unless current_user
+    redirect_to root_path, alert: "You must be signed in to view this page." unless current_user
   end
 
   def admin_user!
     if current_user
-      allowed_emails = ['oren@teich.net', 'olivia@teich.net']
+      allowed_emails = ["oren@teich.net", "olivia@teich.net"]
       unless allowed_emails.include?(current_user.email)
-        redirect_to root_path, alert: 'You do not have permission to view this page.'
+        redirect_to root_path, alert: "You do not have permission to view this page."
       end
     else
-      redirect_to root_path, alert: 'You must be signed in to view this page.'
+      redirect_to root_path, alert: "You must be signed in to view this page."
     end
   end
 end
