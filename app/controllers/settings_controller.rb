@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
-  http_basic_authenticate_with name: "test", password: "test"
+  before_action :authenticate_user!
+
   def edit
     # You need to implement a method to fetch the current weekly allowance values.
     # For simplicity, we use a constant hash in this example, but you should fetch the values from a database or a configuration file.

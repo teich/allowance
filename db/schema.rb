@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_181643) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_233947) do
   create_table "allowance_events", force: :cascade do |t|
     t.string "event_type"
     t.decimal "amount"
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_181643) do
   create_table "allowance_settings", force: :cascade do |t|
     t.string "category"
     t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.string "email"
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
