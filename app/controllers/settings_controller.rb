@@ -9,6 +9,19 @@ class SettingsController < ApplicationController
       savings: AllowanceSetting.find_by(category: "savings")&.amount || 0,
       giving: AllowanceSetting.find_by(category: "giving")&.amount || 0,
     }
+  
+    t = AllowanceEvent.where(event_type: ['update_spending', 'update_savings', 'update_giving'])
+    grouped_records = t.group_by{|record| [record.created_at.to_date, record.event_type]}
+    @pivot_table = {}
+    grouped_records.each do |(date, type), records|
+      @pivot_table[date] ||= {}
+      @pivot_table[date][type] = records.first.amount
+    end
+
+    @allowance_changes = AllowanceEvent.where(event_type: ['update_spending', 'update_savings', 'update_giving'])
+    .order(timestamp: :desc)
+
+    @new_allowance_event = AllowanceEvent.new
   end
 
   def update
