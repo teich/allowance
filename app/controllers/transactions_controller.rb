@@ -41,6 +41,6 @@ class TransactionsController < ApplicationController
   private
 
   def allowance_event_params
-    params.require(:allowance_event).permit(:event_type, :amount, :description)
+    params.require(:allowance_event).permit(:event_type, :amount, :description, :timestamp)
   end
 end
