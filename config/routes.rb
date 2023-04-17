@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     post 'run_weekly_allowance', on: :collection
   end
   resources :allowance_events, only: [:create]
-  resources :transactions, only: [:index, :create, :destroy]
+  resources :transactions, only: [:index, :create, :destroy, :edit, :update]
 
   get '/auth/google_oauth2/callback', to: 'sessions#create'
   delete '/sign_out', to: 'sessions#destroy', as: 'sign_out'

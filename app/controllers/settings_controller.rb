@@ -74,6 +74,7 @@ class SettingsController < ApplicationController
   def allowance_not_given_since_previous_monday?
     previous_monday = Date.today.beginning_of_week - 1.week
     AllowanceEvent.where(event_type: ["spending", "savings", "giving"])
+                  .where(generated_allowance: true)
                   .where("timestamp >= ?", previous_monday)
                   .empty?
   end
@@ -90,6 +91,8 @@ class SettingsController < ApplicationController
         event_type: category,
         amount: amount,
         timestamp: Time.current,
+        generated_allowance: true,
+        description: "Weekly - #{category}",
       )
     end
   end

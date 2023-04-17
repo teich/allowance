@@ -16,3 +16,9 @@
 
  @import "bootstrap";
  @import "font-awesome";
+
+ .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between buttons */
+  }
