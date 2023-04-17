@@ -50,12 +50,20 @@ class SettingsController < ApplicationController
   end
 
   def run_weekly_allowance
-    if allowance_not_given_since_previous_monday?
-      create_allowance_events
-      redirect_to edit_settings_path, notice: "Weekly allowance has been run successfully."
+    last_allowance_event = AllowanceEvent.where(generated_allowance: true).order(timestamp: :desc).first
+
+    weeks_since_last_allowance = if last_allowance_event
+      ((Time.now - last_allowance_event.timestamp) / 1.week).floor
     else
-      redirect_to edit_settings_path, alert: "Weekly allowance has already been run since the previous Monday."
+      1 # If there is no previous allowance event, run for the current week
     end
+    
+    weeks_since_last_allowance.times do |i|
+      allowance_date = (last_allowance_event&.timestamp || Time.now) + (i + 1).weeks
+      create_allowance_events
+    end
+    redirect_to dashboard_index_path, notice: "Allowance for #{weeks_since_last_allowance} week(s) has been run."
+
   end
 
   private
@@ -69,14 +77,6 @@ class SettingsController < ApplicationController
       allowance_setting.amount = amount
       allowance_setting.save!
     end
-  end
-
-  def allowance_not_given_since_previous_monday?
-    previous_monday = Date.today.beginning_of_week - 1.week
-    AllowanceEvent.where(event_type: ["spending", "savings", "giving"])
-                  .where(generated_allowance: true)
-                  .where("timestamp >= ?", previous_monday)
-                  .empty?
   end
 
   def create_allowance_events
