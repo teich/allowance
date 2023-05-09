@@ -80,11 +80,12 @@ class SettingsController < ApplicationController
   end
 
   def create_allowance_events
-    weekly_allowance = {
-      spending: AllowanceSetting.find_by(category: "spending")&.amount || 0,
-      savings: AllowanceSetting.find_by(category: "savings")&.amount || 0,
-      giving: AllowanceSetting.find_by(category: "giving")&.amount || 0,
-    }
+    categories = ["spending", "savings", "giving"]
+    weekly_allowance = {}
+
+    categories.each do |category|
+      weekly_allowance[category.to_sym] = AllowanceSetting.find_by(category: category)&.amount || 0
+    end
 
     weekly_allowance.each do |category, amount|
       AllowanceEvent.create!(
