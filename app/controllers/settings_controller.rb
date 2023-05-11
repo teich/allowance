@@ -2,14 +2,13 @@ class SettingsController < ApplicationController
   before_action :admin_user!
 
   def edit
-    # You need to implement a method to fetch the current weekly allowance values.
-    # For simplicity, we use a constant hash in this example, but you should fetch the values from a database or a configuration file.
+    # Fetch the current weekly allowance values from the database.
     @weekly_allowance = {
       spending: AllowanceSetting.find_by(category: "spending")&.amount || 0,
       savings: AllowanceSetting.find_by(category: "savings")&.amount || 0,
       giving: AllowanceSetting.find_by(category: "giving")&.amount || 0,
     }
-  
+
     t = AllowanceEvent.where(event_type: ['update_spending', 'update_savings', 'update_giving'])
     grouped_records = t.group_by{|record| [record.created_at.to_date, record.event_type]}
     @pivot_table = {}
@@ -59,8 +58,7 @@ class SettingsController < ApplicationController
     end
     
     weeks_since_last_allowance.times do |i|
-      allowance_date = (last_allowance_event&.timestamp || Time.now) + (i + 1).weeks
-      create_allowance_events
+      create_allowance_events(i)
     end
     redirect_to dashboard_index_path, notice: "Allowance for #{weeks_since_last_allowance} week(s) has been run."
 
@@ -79,7 +77,7 @@ class SettingsController < ApplicationController
     end
   end
 
-  def create_allowance_events
+  def create_allowance_events(i)
     categories = ["spending", "savings", "giving"]
     weekly_allowance = {}
 
@@ -91,7 +89,7 @@ class SettingsController < ApplicationController
       AllowanceEvent.create!(
         event_type: category,
         amount: amount,
-        timestamp: Time.current,
+        timestamp: Time.current.beginning_of_week - i.weeks,
         generated_allowance: true,
         description: "Weekly - #{category}",
       )
