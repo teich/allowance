@@ -49,22 +49,28 @@ class SettingsController < ApplicationController
   end
 
   def run_weekly_allowance
-    last_allowance_event = AllowanceEvent.where(generated_allowance: true).order(timestamp: :desc).first
-
-    weeks_since_last_allowance = if last_allowance_event
-      ((Time.now - last_allowance_event.timestamp) / 1.week).floor
-    else
-      1 # If there is no previous allowance event, run for the current week
-    end
-    
-    weeks_since_last_allowance.times do |i|
+    runcount = weeks_since_last_allowance
+    runcount.times do |i|
       create_allowance_events(i)
     end
-    redirect_to dashboard_index_path, notice: "Allowance for #{weeks_since_last_allowance} week(s) has been run."
+    redirect_to dashboard_index_path, notice: "Allowance for #{runcount} week(s) has been run."
 
   end
 
   private
+
+  def weeks_since_last_allowance
+    last_allowance_event = AllowanceEvent.where(generated_allowance: true).order(timestamp: :desc).first
+    last_anything = AllowanceEvent.order(timestamp: :asc).first
+    
+    ## first let's check if we have an allowance run. IF we don't, let's check if we have any events at all, and if that fails, just run for 1 week
+    foo = last_allowance_event || last_anything
+    if foo
+      ((Time.now - foo.timestamp) / 1.week).floor
+    else
+      1
+    end
+  end
 
   def save_updated_allowance(updated_allowance)
     updated_allowance.each do |category, amount|
